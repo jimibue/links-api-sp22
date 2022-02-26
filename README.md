@@ -108,3 +108,71 @@ class Link < ApplicationRecord
 end
 ```
 
+
+
+# HEROKU SETUP (API ONLY)
+gemfile uncomment cors gem
+
+```
+# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
+gem "rack-cors"
+```
+
+initializer/config/cors.rb
+
+```
+Rails.application.config.middleware.insert_before 0, Rack::Cors do
+  allow do
+    origins "*"
+    resource "*", headers: :any, methods: [:get, :post, :patch, :put]
+  end
+end
+```
+
+Steps:
+
+- create profile (In rails project folder NOT CLIENT)
+`touch Procfile` 
+- add this to profile 
+`web: bundle exec puma -t 5:5 -p ${PORT:-3000} -e ${RACK_ENV:-development}`
+
+- create an app on heroku (need account and need heroku cli)
+- login via terminal and add remote
+
+```
+$ heroku login
+$ heroku git:remote -a your-project-name
+```
+
+- to push to heruko
+
+```
+$ git add .
+$ git commit -m 'initial commit'
+$ git push heroku master
+$ heroku run rails db:migrate (if needed heroku doesn't
+  *if you need to migrate*
+
+```
+
+
+
+
+NEO REFERENCE(You will need to replace your own URL here)
+https://dpl.neolms.com/teacher_lesson/show/1687880?lesson_id=7328396&section_id=22724896
+
+
+
+Heroku commands:
+
+https://devcenter.heroku.com/articles/heroku-cli-commands (Links to an external site.)
+```
+$ heroku run rails c
+$ heroku open
+```
+
+
+https://heroku.com (Links to an external site.)
+
+https://devcenter.heroku.com/articles/heroku-cli#download-and-install (Links to an external site.)
+
