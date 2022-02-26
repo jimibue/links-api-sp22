@@ -1,15 +1,3 @@
-# Follow Along
-
-```
-$ rails new resources-api -d postgresql --api
-$ cd resources-api
-$ rails g model link title url username description
-$ rails g controller api/links
-$ rails db:create db:migrate
-```
-
-app/controllers/api/links_controller.rb
-```ruby
 class Api::LinksController < ApplicationController
     # return all links
     # get 'api/links'
@@ -78,33 +66,3 @@ class Api::LinksController < ApplicationController
         params.require(:link).permit(:title, :url, :username, :description)
     end
 end
-```
-
-config/routes.rb
-```ruby
-Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  namespace :api do
-	# GET	/api/links	=>  goes to api/links_controller#index
-  # POST	/api/links =>  goes to api/links_controller#create
-  # GET	/api/links/:id =>	goes to api/links_controller#show
-  # PATCH	/api/links/:id => goes to api/links_controller#update
-  # PUT	/api/links/:id => goes to api/links_controller#update
-  # DELETE	/api/links/:id =>=> goes to api/links_controller#destroy
-
-    # this generate the routes above 
-    resources :links
-  end
-end
-```
-
-app/models/link.rb
-```ruby
-class Link < ApplicationRecord
-    # username must be one of these values or it won't save to db
-    students = %w(austink brendac jamesy katherine michaelc michealp randyc trinan sharayahh jessican joej )
-    validates :username, inclusion: { in: students,
-        message: "%{value} is not a valid username" }
-end
-```
-
