@@ -10,5 +10,11 @@ Rails.application.routes.draw do
 
     # this generate the routes above 
     resources :links
+
+    get 'foods', to:'foods#index' # get all foods form db (Read)
+    get 'foods/:id', to:'foods#show' # get one food from db (Read)
+    post 'foods', to:'foods#create' # create one food to db (Create)
+    put 'foods/:id', to:'foods#update' # create one food to db (Update)
+    delete 'foods/:id', to:'foods#destroy' # create one food to db (Update)
   end
 end

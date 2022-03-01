@@ -1,4 +1,29 @@
-# Follow Along
+# API Routes
+This is a demo api used to practice crud actions with an actual DB.  There is just one model with this api and that is a link model.  a link has these fields:
+
+description: string,\
+username(required): string, \
+title:string, \
+url :string
+
+
+
+## API 
+  - GET	/api/links	
+    =>  return all links
+  - POST	/api/links  {description,username(required), title, url} 
+    => create link
+  - GET	/api/links/:id =>	gets one link
+  - PATCH	/api/links/:id  {description,username(required), title, url}
+  - PUT	/api/links/:id => goes to api/links_controller#update
+     =>  update link 
+  - DELETE	/api/links/:id 
+     =>  delete link 
+
+     live api [https://link-app-sp22.herokuapp.com](https://link-app-sp22.herokuapp.com/api/links)
+
+# Setup
+These steps below outline how this project was built     
 
 ```
 $ rails new resources-api -d postgresql --api
@@ -7,7 +32,7 @@ $ rails g model link title url username description
 $ rails g controller api/links
 $ rails db:create db:migrate
 ```
-
+### Links Controller
 app/controllers/api/links_controller.rb
 ```ruby
 class Api::LinksController < ApplicationController
@@ -108,7 +133,30 @@ class Link < ApplicationRecord
 end
 ```
 
+# Food model and controller
 
+```
+rails g model food name price:float
+rails g controller api/foods
+rails db:migrate
+```
+
+routes.rb
+
+```ruby
+   namespace :api do
+   ....
+    get 'foods', to:'foods#index' # get all foods form db (Read)
+    post 'foods', to:'foods#create' # create one food to db (Create)
+    get 'foods/:id', to:'foods#show' # get one food from db (Read)
+    put 'foods/:id', to:'foods#update' # create one food to db (Update)
+    delete 'foods/:id', to:'foods#destroy' # create one food to db (Update)
+    ...
+  end
+```
+
+
+# IGNORE FOR HW
 
 # HEROKU SETUP (API ONLY)
 gemfile uncomment cors gem
